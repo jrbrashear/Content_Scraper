@@ -7,11 +7,12 @@ const fs = require('fs');
 const json2csv = require('json2csv');
 //define varibles
 const urlBase = 'http://shirts4mike.com/shirts.php';
-const fields = ['title', 'price', 'url', 'imageURL'];
-const fieldNames = ['Title','Price', 'URL', 'ImageURL' ]
+const fields = ['title', 'price','imageURL' ,'url', 'shirtTime'];
+const fieldNames = ['Title','Price','ImageURL','URL', 'Time' ];
 let time = moment().format('YYYY[-]MM[-]DD');
 
 let shirtURL = [];
+
 let shirts =[]
 
 let alarm = function (error) {
@@ -39,7 +40,8 @@ request(urlBase, function(error, response, body){
         shirt.title = $('title').text();
         shirt.price = $('.price').text();
         shirt.url = shirtURL[i];
-        shirt.imageURL = $('.shirt-picture img').attr('src')
+        shirt.imageURL = $('.shirt-picture img').attr('src');
+        shirt.shirtTime = moment().format('YYYY MMM DD hh:mm:ss')
         if (shirts.indexOf(shirt.url) == -1){
           shirts.push(shirt);
         }
